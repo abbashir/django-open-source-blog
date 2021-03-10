@@ -1,0 +1,37 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block title %} {{title}} {% endblock %}
+
+{% block content %}
+
+<section class="page-header">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <div class="page-title">
+                    <h2>{{about.title}}</h2>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="page-breadcrumb">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{% url 'posts:home' %}">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">{{about.title}}</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- page header end -->
+<!-- About section -->
+<section class="about-section">
+    <div class="container about_content">
+        <p>{{about.content|safe}}</p>
+    </div>
+</section>
+<!-- About section -->
+
+{% endblock %}

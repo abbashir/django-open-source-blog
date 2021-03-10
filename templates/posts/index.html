@@ -1,0 +1,203 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block title %} {{title}} {% endblock %}
+
+{% block content %}
+
+<main class="kavya-archive">
+
+    <!-- Banner section -->
+    <section class="banner-section">
+        <div class="main-banner">
+            <div class="container">
+                <div class="banner-bg">
+                    <div class="banner-bg-left">
+                    </div>
+                    <div class="banner-bg-right">
+                        <div class="banner-carousel">
+                            {% for feature_post in feature_posts %}
+                            <div class="banner-item">
+                                <div class="banner-img">
+                                    <a href="{{ feature_post.get_absolute_url }}"> <img src="{{feature_post.image.url}}"
+                                            alt=""></a>
+                                </div>
+                                <div class="banner-text">
+                                    <ul class="category-tag-list">
+                                        <li class="category-tag-name">
+                                            <a href="#">{{feature_post.category}}</a>
+                                        </li>
+
+                                    </ul>
+                                    <div class="title-font">
+                                        <a href="{{ feature_post.get_absolute_url }}">{{feature_post.title}}</a>
+                                    </div>
+                                    <p class="mb-3 justify">
+                                        {{feature_post.content|safe|truncatewords:25}}
+                                    </p>
+                                    <a href="{{ feature_post.get_absolute_url }}" class="btn btn-solid btn-read">Read
+                                        More</a>
+                                </div>
+                            </div>
+                            {% endfor %}
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="container">
+            <div class="more-content-grid py-30">
+                <div class="section-title">
+                    <h2>Popular Posts</h2>
+                </div>
+                <div class="row">
+                    {% for post in popular_posts %}
+                    <div class="col-md-4">
+                        <div class="card">
+                            <a href="{{ post.get_absolute_url }}">
+                                {% if post.image %}
+                                <img src="{{post.image.url}}" class="card-img-top " alt="" />
+                                {% endif %}
+                            </a>
+                            <div class="card-body px-0">
+                                <ul class="category-tag-list">
+                                    <li class="category-tag-name">
+                                        <a href="#">{{post.category}}</a>
+                                    </li>
+                                </ul>
+                                <h5 class="card-title title-font">
+                                    <a href="{{ post.get_absolute_url }}">
+                                        {{post.title}}
+                                    </a>
+                                </h5>
+                                <div class="author-date">
+                                    <a class="author" href="#">
+                                        <img src="{% static 'assets/images/writer.jpg' %}" alt=""
+                                            class="rounded-circle" />
+                                        <span class="writer-name-small">{{post.author}}</span>
+                                    </a>
+                                    <a class="date" href="#">
+                                        <span>{{post.created_at|date:"d M, Y"}}</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Banner section end -->
+
+    <!-- Archive content -->
+    <section class="archive-content">
+        <div class="container">
+            <div class="row " id="main-content">
+
+                <!-- Post Start -->
+                <div class="col-md-7 col-lg-8 content">
+                    <!-- Archive posts -->
+                    <div class="archive-posts theiaStickySidebar">
+
+                        {% for post in posts %}
+                        <div class="card border-0 mb-5">
+                            <div class="row no-gutters align-items-center align-items-center">
+                                <div class="col-md-5">
+                                    <a href="{{ post.get_absolute_url }}"> <img src="{{post.image.url}}"
+                                            class="card-img" alt=""></a>
+                                </div>
+                                <div class="col-md-7">
+                                    <div class="card-body">
+                                        <ul class="category-tag-list">
+                                            <li class="category-tag-name">
+                                                <a href="#">{{post.category}}</a>
+                                            </li>
+
+                                        </ul>
+                                        <h5 class="card-title title-font">
+                                            <a href="{{ post.get_absolute_url }}">{{post.title}}</a>
+                                        </h5>
+                                        <p class="card-text">
+                                            {{post.content|truncatewords:20|safe}}
+                                            <p>
+
+                                                <div class="author-date">
+                                                    <a class="author" href="#">
+                                                        <img src="{% static 'assets/images/writer.jpg' %}" alt=""
+                                                            class="rounded-circle" />
+                                                        <span class="writer-name-small">{{post.author}}</span>
+                                                    </a>
+                                                    <a class="date" href="#">
+                                                        <span>{{post.created_at|date:"M d, Y"}}</span>
+                                                    </a>
+                                                </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+
+                    </div>
+                    <!-- Archive posts end -->
+                </div>
+                <!-- Post End -->
+
+                <!-- Sidebar Start -->
+                {% include "base/sidebar.html" %}
+                <!-- Sidebar End -->
+
+            </div>
+        </div>
+    </section>
+    <!-- Archive content end -->
+
+
+    <!-- Pagination section -->
+    <section class="pagination-section">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+
+                {% if posts.has_previous %}
+                <a class="page-link" href="?page=1" tabindex="-1"><i class="fas fa-arrow-left"></i></a>
+                {% comment %} <a class="page-link" href="?page={{ posts.previous_page_number }}" tabindex="-1"><i
+                        class="fas fa-arrow-left"></i></a> {% endcomment %}
+
+                {% endif %}
+
+                {% for num in posts.paginator.page_range %}
+
+                {% if posts.number == num %}
+                <li class="page-item active"><a class="page-link text-white" href="?page={{ num }}">{{ num }}</a></li>
+                {% elif num > posts.number|add:'-3' and num < posts.number|add:'3' %}
+                <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+
+
+                {% endif %}
+
+                {% endfor %}
+
+
+                {% if posts.has_next %}
+                {% comment %} <li class="page-item">
+                    <a class="page-link" href="?page={{ posts.next_page_number }}"><i
+                            class="fas fa-arrow-right"></i></a>
+                </li> {% endcomment %}
+
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ posts.paginator.num_pages }}"><i
+                            class="fas fa-arrow-right"></i></a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </section>
+    <!-- pagination section end -->
+
+
+</main>
+{% endblock %}

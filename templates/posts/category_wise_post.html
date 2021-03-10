@@ -1,0 +1,71 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block title %} {{title}} {% endblock %}
+
+{% block content %}
+<!-- Page header -->
+<section class="page-header">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <div class="page-title">
+                    <h2>Category name: <span> "{{ category_name }}"  </span></h2>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="page-breadcrumb">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{% url 'posts:home' %}">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Search results</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- page header end -->
+
+<!-- search results -->
+<section class="search-results">
+    <div class="container">
+        <h5 class="search-result-title">Great! We've found {{ posts|length }} matching blog{{ posts|pluralize }} of "{{ category_name }}" category.</h5>
+
+        <div class="row align-items-center">
+            {% if not posts %}
+            <h1>Post Not Found</h1>
+            {% else %}
+            {% for post in posts %}
+            <div class="col-md-12 col-lg-6">
+                <div class="card p-3">
+                    <div class="row no-gutters align-items-center align-items-center">
+                        <div class="col-md-5">
+                            <a href="{{ post.get_absolute_url }}"> <img src="{{post.image.url}}" class="card-img" alt=""></a>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="card-body">
+                                <ul class="category-tag-list">
+                                    <li class="category-tag-name">
+                                        <a href="#">Travel</a>
+                                    </li>
+
+                                </ul>
+                                <h5 class="card-title title-font"><a href="{{ post.get_absolute_url }}">{{post.title}}</a></h5>
+                                <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            {% endif %}
+
+        </div>
+    </div>
+</section>
+<!-- search resukts end -->
+
+
+{% endblock %}

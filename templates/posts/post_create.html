@@ -1,0 +1,43 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %} {{title}} {% endblock %}
+
+{% block content %}
+<div class="container">
+    <!--    <form method="post">-->
+    <!--        {% csrf_token %}-->
+    <!--        <div class="form-group">-->
+    <!--            <label>{{ form.title.label_tag }}</label>-->
+    <!--            &lt;!&ndash;            <input type="text" class="form-control" placeholder="Enter title">&ndash;&gt;-->
+    <!--            {{ form.title }}-->
+    <!--            {{ form.title.errors }}-->
+    <!--        </div>-->
+
+    <!--        <div class="form-group">-->
+    <!--            <label for="exampleFormControlSelect1">Example select</label>-->
+    <!--            <select class="form-control" id="exampleFormControlSelect1">-->
+    <!--                <option>1</option>-->
+    <!--                <option>2</option>-->
+    <!--                <option>3</option>-->
+    <!--                <option>4</option>-->
+    <!--                <option>5</option>-->
+    <!--            </select>-->
+    <!--        </div>-->
+    <!--        <div class="form-group">-->
+    <!--            <label for="exampleFormControlTextarea1">Example textarea</label>-->
+    <!--            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>-->
+    <!--        </div>-->
+    <!--    </form>-->
+
+    <h1>Create Post</h1>
+    <form method="post" action="" class="mb-4" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.media }}
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-primary btn-block">Create</button>
+    </form>
+</div>
+
+
+{% endblock %}

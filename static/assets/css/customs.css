@@ -1,0 +1,19 @@
+.banner-carousel .slick-next {
+    left: calc(27% + 50px);
+    top: 625px;
+    background: #FF986A;
+}
+
+.banner-carousel .slick-prev {
+    z-index: 11;
+    background: #fff;
+    left: 27%;
+    top: 625px;
+    background: #333333;
+}
+
+.about_content {
+    background: #ecf1ff;
+    padding: 100px;
+    padding-bottom: 150px;
+}

@@ -1,0 +1,17 @@
+{% extends "base/base.html" %}
+{% block title %} Page not found {% endblock %}
+
+{% block content %}
+<!-- Error section -->
+<section class="error-section">
+    <div class="container">
+        <div class="error-text-wrapper">
+            <h2 class="title-404">404</h2>
+            <h4 class="sub-404">Page not found</h4>
+            <p class="desc-404">Sorry, we can't find the page you are looking for.</p>
+            <a href="{% url 'posts:home' %}" class="btn btn-solid">Back to Home Page</a>
+        </div>
+    </div>
+</section>
+<!-- error section end -->
+{% endblock %}
